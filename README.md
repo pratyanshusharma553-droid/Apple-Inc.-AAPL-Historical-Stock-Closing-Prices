@@ -51,6 +51,9 @@ R² Score
 Visualization
 Plots comparing actual vs predicted values were generated for both models.
 
+<img width="1160" height="545" alt="image" src="https://github.com/user-attachments/assets/3a2c4c44-4246-4413-a4f6-6234bf4dafc5" />
+
+
 📊 Results
 
 Both models successfully learned meaningful temporal patterns. However, the Transformer consistently achieved lower prediction errors and a higher R² score. Its attention mechanism allowed it to better capture long-term dependencies and important historical signals.
