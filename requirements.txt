@@ -14,4 +14,5 @@ uvicorn
 tensorflow
 numpy
 joblib
-
+streamlit
+requests
