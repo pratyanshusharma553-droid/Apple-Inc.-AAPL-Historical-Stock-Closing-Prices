@@ -1,9 +1,11 @@
 import streamlit as st
 import requests
 
-API_URL = "http://127.0.0.1:8000/predict"
+API_URL = "https://apple-inc-aapl-historical-stock-closing.onrender.com/predict"
 
-st.title("📈 Time Series Forecasting App")
+st.set_page_config(page_title="Time Series Forecast", layout="centered")
+
+st.title("📈 Time Series Forecasting")
 st.write("Enter the last 30 prices to predict the next value.")
 
 model_choice = st.selectbox("Choose Model", ["transformer", "lstm"])
@@ -18,13 +20,17 @@ prices_input = st.text_area(
 if st.button("Predict"):
     try:
         prices = [float(x.strip()) for x in prices_input.split(",")]
-        response = requests.post(f"{API_URL}/{model_choice}", json=prices)
 
-        if response.status_code == 200:
-            result = response.json()
-            st.success(f"Predicted Next Value: {result['predicted_next_value']:.2f}")
+        if len(prices) != 30:
+            st.error("Please enter exactly 30 values.")
         else:
-            st.error(response.json())
+            response = requests.post(f"{API_URL}/{model_choice}", json=prices)
+
+            if response.status_code == 200:
+                result = response.json()
+                st.success(f"Predicted Next Value: {result['predicted_next_value']:.2f}")
+            else:
+                st.error(response.json())
 
     except:
-        st.error("Invalid input. Please enter exactly 30 numeric values.")
+        st.error("Invalid input. Please enter numeric values only.")
